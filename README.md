@@ -1,5 +1,7 @@
 # ros2_cam_control
-Camera control for RealSense cameras
+Camera control for RealSense cameras in a containerized environment
+
+(for NUC)
 
 
 # usage
