@@ -6,12 +6,20 @@ Camera control for RealSense cameras in a containerized environment
 
 # usage
 
-`git clone https://github.com/hsnlab-iot/ros2_cam_control.git camcontrol_ws --recurse-submodules`
+
+```shell
+git clone https://github.com/hsnlab-iot/ros2_cam_control.git camcontrol_ws --recurse-submodules
+```
+
 
 compile dockerfile:
-`./build.sh`
+```shell
+./build.sh
+```
 start dockerfile:
-`./run.sh`
+```shell
+./run.sh
+```
 
 # features
 - publish realsense camera stream(s)
