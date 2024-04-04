@@ -6,3 +6,6 @@
 	path = src/ros2_aruco
 	url = https://github.com/JMU-ROBOTICS-VIVA/ros2_aruco.git
 	branch = opencv_4.7
+[submodule "src/yolov8_ros"]
+	path = src/yolov8_ros
+	url = https://github.com/mgonzs13/yolov8_ros.git

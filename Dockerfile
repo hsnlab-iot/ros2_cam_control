@@ -29,7 +29,7 @@ RUN apt-get update -q && \
 # Install Ubuntu Mate desktop
 RUN apt-get update -q && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
-        ubuntu-mate-desktop && \
+    ubuntu-mate-desktop && \
     apt-get autoclean && \
     apt-get autoremove && \
     rm -rf /var/lib/apt/lists/*
@@ -37,10 +37,10 @@ RUN apt-get update -q && \
 # Add Package
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
-        tigervnc-standalone-server tigervnc-common \
-        supervisor wget curl gosu git sudo python3-pip tini \
-        build-essential vim sudo lsb-release locales \
-        bash-completion tzdata terminator apt-transport-https && \
+    tigervnc-standalone-server tigervnc-common \
+    supervisor wget curl gosu git sudo python3-pip tini \
+    build-essential vim sudo lsb-release locales \
+    bash-completion tzdata terminator apt-transport-https && \
     apt-get autoclean && \
     apt-get autoremove && \
     rm -rf /var/lib/apt/lists/*
@@ -116,18 +116,18 @@ RUN apt-get update -q && \
     libxcb-shm0 \
     libglu1-mesa-dev \
     python3-dev \
-# Filament build-from-source
+    # Filament build-from-source
     clang\
     libc++-dev\
     libc++abi-dev\
     libsdl2-dev\
     ninja-build\
     libxi-dev\
-# ML
+    # ML
     libtbb-dev\
-# Headless rendering
+    # Headless rendering
     libosmesa6-dev\
-# RealSense
+    # RealSense
     libudev-dev\
     autoconf\
     libtool
@@ -169,9 +169,16 @@ RUN pip install setuptools==58.2.0 \
     torch \
     torchvision \
     git+https://github.com/facebookresearch/segment-anything.git \
-    opencv-contrib-python transforms3d
+    opencv-contrib-python transforms3d lap
 
-RUN cd /home/ubuntu/AIMS50_imgproc && colcon build
+WORKDIR /home/ubuntu/AIMS50_imgproc/src
+RUN git clone https://github.com/mgonzs13/yolov8_ros.git && \
+    pip3 install -r yolov8_ros/requirements.txt
+
+RUN source /opt/ros/humble/setup.bash
+
+WORKDIR /home/ubuntu/AIMS50_imgproc
+RUN rosdep install --from-paths src --ignore-src -r -y
 
 COPY ./entrypoint.sh /
 ENTRYPOINT [ "/bin/bash", "-c", "/entrypoint.sh" ]
